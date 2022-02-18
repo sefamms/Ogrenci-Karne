@@ -27,7 +27,7 @@ namespace Excell_Deneme_1
             {
                 MailMessage ePosta = new MailMessage();
                 ePosta.From = new MailAddress(Sender_Mail);
-                ePosta.To.Add("musamilli@gmail.com");
+                ePosta.To.Add(Receiver_Mail);
 
                 ePosta.Attachments.Add(new Attachment(yol));
                 ePosta.Subject = "Dönem Notları";
@@ -48,6 +48,41 @@ namespace Excell_Deneme_1
                 throw new Exception(msg);
             }
 
+        }
+
+        public String Turkce_Cevir(String gelen)
+        {
+            String temp = "";
+
+            if (gelen == "İ")
+            {
+                temp = "I";
+                return temp;
+            }
+            else if (gelen == "Ö")
+            {
+                temp = "O";
+                return temp;
+            }
+            else if (gelen == "Ü")
+            {
+                temp = "U";
+                return temp;
+            }
+            else if (gelen == "Ç")
+            {
+                temp = "C";
+                return temp;
+            }
+            else if (gelen == "Ş")
+            {
+                temp = "S";
+                return temp;
+            }
+            else
+            {
+                return gelen;
+            }
         }
 
 
@@ -145,24 +180,26 @@ namespace Excell_Deneme_1
             {
                 for (sutun = 1; sutun <= range.Columns.Count; sutun++)
                 {
-                    str = (string)(range.Cells[satir, sutun] as Excel.Range).Value2;
+                    str = Convert.ToString((range.Cells[satir, sutun] as Excel.Range).Value2);
 
                     if (str == "KISIM ")
                     {
-                        Ogrenci.setOgrenci_Sinif((string)(range.Cells[satir, sutun + 3] as Excel.Range).Value2);
+                        Ogrenci.setOgrenci_Sinif(Convert.ToString((range.Cells[satir, sutun + 3] as Excel.Range).Value2));
                     }
 
                     if (str == "ÖĞRENCİ NO")
                     {
-                        Ogrenci.setOgrenci_No((string)(range.Cells[satir, sutun + 3] as Excel.Range).Value2);
+                        Ogrenci.setOgrenci_No(Convert.ToString((range.Cells[satir, sutun + 3] as Excel.Range).Value2));
                     }
 
                     if (str == "ADI SOYADI")
                     {
-                        Ogrenci.setOgrenci_isim((string)(range.Cells[satir, sutun + 3] as Excel.Range).Value2);
+                        Ogrenci.setOgrenci_isim(Convert.ToString((range.Cells[satir, sutun + 3] as Excel.Range).Value2));
                         sayac++;
                         tempDizi = Ogrenci.getOgrenci_isim().Split(' ');
-                        Ogrenci.setOgrenci_Email(tempDizi[tempDizi.Length - 1].Remove(1, tempDizi[tempDizi.Length - 1].Length-1)+Ogrenci.getOgrenci_No()+"@dho.edu.tr");
+                        Ogrenci.setOgrenci_Email(tempDizi[tempDizi.Length - 1].Remove(1, tempDizi[tempDizi.Length - 1].Length - 1));
+                        Ogrenci.setOgrenci_Email(Turkce_Cevir(Ogrenci.getOgrenci_Email()));
+                        Ogrenci.setOgrenci_Email(Ogrenci.getOgrenci_Email()+Ogrenci.getOgrenci_No()+"@dho.edu.tr");
                         log = sayac.ToString() + ")  " + Ogrenci.getOgrenci_No() + "  numaralı  " + Ogrenci.getOgrenci_isim() + "\nişlemleri yapılıyor.... \n\n" + Ogrenci.getOgrenci_Email() + "  adresine mail gönderiliyor...";
                         RtxtIcerik.Text = log;
                     }
@@ -211,7 +248,7 @@ namespace Excell_Deneme_1
 
 
             /*Ram üzeründen de excelin bağlantısını kaldırıyoruz.*/
-            /*try
+            try
             {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlUygulama);
                 xlUygulama = null;
@@ -224,7 +261,7 @@ namespace Excell_Deneme_1
             finally
             {
                 GC.Collect();
-            }*/
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)

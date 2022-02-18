@@ -122,7 +122,7 @@
             this.txtSenderMail.Name = "txtSenderMail";
             this.txtSenderMail.Size = new System.Drawing.Size(152, 20);
             this.txtSenderMail.TabIndex = 9;
-            this.txtSenderMail.Text = "millimusa@gmail.com";
+            this.txtSenderMail.Text = "donotreplydho@gmail.com";
             // 
             // txtSenderPassword
             // 
@@ -130,6 +130,7 @@
             this.txtSenderPassword.Name = "txtSenderPassword";
             this.txtSenderPassword.Size = new System.Drawing.Size(152, 20);
             this.txtSenderPassword.TabIndex = 10;
+            this.txtSenderPassword.Text = "Dh@.1773";
             // 
             // btnExit
             // 
